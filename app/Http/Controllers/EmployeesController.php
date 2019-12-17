@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Employees;
 use App\Jobs;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class EmployeesController extends Controller
 {
@@ -15,8 +16,11 @@ class EmployeesController extends Controller
      */
     public function index()
     {
-        $da = Employees::all();
-        return view('')->with('', $ta);
+        $employees = Employees::all();
+        $jobs=Jobs::all();
+        // dd($employees[1]->jobs);
+
+        return view('employees.index')->with('employees', $employees)->with('jobs',$jobs);
     }
 
     /**
@@ -26,8 +30,9 @@ class EmployeesController extends Controller
      */
     public function create()
     {
-        $da = Jobs::all();
-        return view('')->with('', $ta);
+        $employees = Employees::all();
+        $jobs=Jobs::all();
+        return view('employees.create')->with('employees', $employees)->with('jobs',$jobs);
     }
 
     /**
@@ -40,20 +45,20 @@ class EmployeesController extends Controller
     {
         $request->validate([
             'job'=>'required',
-            'nama'=>'required',
+            'name'=>'required',
             'email'=>'required',
-            'kontak'=>'required',
-            'alamat'=>'required',
+            'phone'=>'required',
+            'address'=>'required',
         ]);
         $employees = new Employees([
             'id_jobs' => $request->input('job'),
-            'name' => $request->input('nama'),
+            'name' => $request->input('name'),
             'email' => $request->input('email'),
-            'phone' => $request->input('kontak'),
-            'address' => $request->input('alamat')
+            'phone' => $request->input('phone'),
+            'address' => $request->input('address')
         ]);
         $employees->save();
-        return redirect('employe');
+        return redirect('employees');
     }
 
     /**
@@ -77,7 +82,7 @@ class EmployeesController extends Controller
     {
         $jobs = Jobs::all();
         $data = Employees::where('id_employees', '=', $id)->firstOrFail();
-        return view('')->with('employees', $data)->with('jobs', $jobs);
+        return view('employees.edit')->with('employee', $data)->with('jobs', $jobs);
     }
 
     /**
@@ -104,7 +109,7 @@ class EmployeesController extends Controller
             'address' => $request->input('alamat')
         ];
         Employees::where('id_employees',$id)->update($data);
-        return redirect('employ');
+        return redirect('employees');
     }
 
     /**
@@ -116,6 +121,6 @@ class EmployeesController extends Controller
     public function destroy($id)
     {
         Employees::where('id_employees',$id)->delete();
-        return redirect('employe');
+        return redirect('employees');
     }
 }

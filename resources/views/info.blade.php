@@ -70,7 +70,6 @@
                     @auth
                         <a href="{{ url('/jobs') }}">Jobs</a>
                         <a href="{{ url('/employees') }}">Employees</a>
-                        
                     @else
                         <a href="{{ route('login') }}">Login</a>
 
@@ -84,13 +83,13 @@
             <div class="content">
                 <div class="title m-b-md">
                     <!-- Isikan dengan username akun github anda -->
-                    hafifaroon
+                    Syaiful Noor Afifah
                 </div>
 
                 <div class="links">
                     <!-- ganti url dengan link github anda -->
                     <!-- <a href="#">GitHub</a> -->
-                    <a href="https://github.com/hafifaroon/responsi-web2-15121.git" target="_blank">Link Github</a>
+                    18/425979/SV/15121
                 </div>
             </div>
         </div>
